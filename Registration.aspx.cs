@@ -29,7 +29,10 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
         static string code;
         static string  smtpemail;
                         static string smtppwd;
-
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)

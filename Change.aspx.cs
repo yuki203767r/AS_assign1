@@ -31,7 +31,10 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
         static string pwdtime;
         static int maxpwdtime = 5;
         static int minpwdtime = 3;
-
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["LoggedIn"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)

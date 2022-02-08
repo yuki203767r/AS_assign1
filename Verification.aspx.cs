@@ -14,6 +14,11 @@ namespace AS_assign1
 System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].ConnectionString;
         static string email;
 
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 

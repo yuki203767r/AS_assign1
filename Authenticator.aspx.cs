@@ -22,7 +22,10 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
         static string pwdtime;
         static string email;
         static string logMessage;
-
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+        }
 
         String AuthenticationCode
         {
