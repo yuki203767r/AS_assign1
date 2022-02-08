@@ -22,25 +22,59 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Request.QueryString["email"] == null)
+            //if (Request.QueryString["email"] == null)
+            //{
+            //    Response.Redirect("Registration.aspx", false);
+
+            //}
+            //else
+            //{
+            //    email = Request.QueryString["email"];
+            //}
+
+            if (Session["Registered"] != null && Session["AuthToken"] != null && Request.Cookies["AuthToken"] != null)
             {
-                Response.Redirect("Registration.aspx", false);
+                if (!Session["AuthToken"].ToString().Equals(Request.Cookies["AuthToken"].Value))
+                {
+                    Response.Redirect("Registration.aspx", false);
+                }
+                else
+                {
+
+                    email = Session["Registered"].ToString();
+                }
 
             }
             else
             {
-                email = Request.QueryString["email"];
+                Response.Redirect("Registration.aspx", false);
             }
-            
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             var code = getDBcode(email);
-            if(code  == tb_code.Text)
+            if(code  == tb_code.Text.Trim())
             {
                 updateVerified(email);
+                Session.Clear();
+                Session.Abandon();
+                Session.RemoveAll();
+
                 Response.Redirect("Login.aspx", false);
+
+                if (Request.Cookies["ASP.NET_SessionId"] != null)
+                {
+                    Response.Cookies["ASP.NET_SessionId"].Value = string.Empty;
+                    Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddMonths(-20);
+                }
+
+                if (Request.Cookies["AuthToken"] != null)
+                {
+                    Response.Cookies["AuthToken"].Value = string.Empty;
+                    Response.Cookies["AuthToken"].Expires = DateTime.Now.AddMonths(-20);
+                }
 
             }
             else

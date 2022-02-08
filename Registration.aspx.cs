@@ -291,6 +291,16 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                 code = generator.Next(0, 1000000).ToString("D6");
                 
                 createAccount();
+
+                Session["Registered"] = email.Text.Trim();
+
+                string guid = Guid.NewGuid().ToString();
+                Session["AuthToken"] = guid;
+
+                // now create a new cookie with this guid value
+                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+
+                Response.Redirect("Verification.aspx", false);
             }
 
 
@@ -376,7 +386,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                                 cmd.ExecuteNonQuery();
                                 sendcode();
 
-                                Response.Redirect("Verification.aspx?Email=" + HttpUtility.UrlEncode(HttpUtility.HtmlEncode(email.Text.Trim())),false);
+                                //Response.Redirect("Verification.aspx?Email=" + HttpUtility.UrlEncode(HttpUtility.HtmlEncode(email.Text.Trim())),false);
                             }
                             catch (Exception ex)
                             {
