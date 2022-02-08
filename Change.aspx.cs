@@ -71,7 +71,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
             }
             else
             {
-                var boolean = password_checking(HttpUtility.HtmlEncode(changepwd.Text));
+                var boolean = password_checking(HttpUtility.HtmlEncode(changepwd.Text.ToString()));
                 if (boolean == "true")
                 {
                     var salt = getDBSalt(email);

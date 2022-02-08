@@ -59,7 +59,7 @@
             height: 126px;
         }
         .auto-style2 {
-            width: 375px;
+            width: 256px;
         } 
         input {
     line-height: 2em; 
@@ -80,7 +80,7 @@
                 <tr>
                     <td class="auto-style2">New Password</td>
                     <td class="auto-style3">
-                        <asp:TextBox ID="changepwd" onkeyup="javascript:validatepwd()" TextMode="Password" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="changepwd" onkeyup="javascript:validatepwd()" TextMode="Password" runat="server" Width="220px"></asp:TextBox>
                         </td>
                     <td>
                         <asp:Label ID="pwdchecker" runat="server" ForeColor="Red"></asp:Label>
@@ -89,7 +89,7 @@
                 <tr>
                     <td class="auto-style2">Confirm new password</td>
                     <td class="auto-style3">
-                        <asp:TextBox ID="cfmpwd" onkeyup="javascript:matchpwd()" TextMode="Password" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="cfmpwd" onkeyup="javascript:matchpwd()" TextMode="Password" runat="server" Width="221px"></asp:TextBox>
                     </td>
                     <td>
                         <asp:Label runat="server" ForeColor="Red" ID="cfmpwdchecker"></asp:Label>

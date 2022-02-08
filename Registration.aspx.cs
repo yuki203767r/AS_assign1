@@ -12,6 +12,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Mail;
+using System.Configuration;
 
 namespace AS_assign1
 {
@@ -26,6 +27,9 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
         byte[] Key;
         byte[] IV;
         static string code;
+        static string  smtpemail;
+                        static string smtppwd;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
@@ -171,6 +175,8 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
             {
                 passchecker.Text = "";
             }
+            int scores = password_checking(HttpUtility.HtmlEncode(pwd.Text));
+
 
             if (String.IsNullOrEmpty(cfmpwd.Text))
             {
@@ -190,7 +196,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
             if (String.IsNullOrEmpty(dob.Text))
             {
                 dobchecker.Text = "dob is required";
-                return;
+                //return;
 
             }
             else
@@ -201,7 +207,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
             if (String.IsNullOrEmpty(photo.ImageUrl))
             {
                 photochecker.Text = "photo is required";
-                return;
+                //return;
 
             }
             else
@@ -209,7 +215,6 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                 photochecker.Text = "";
             }
 
-            int scores = password_checking(HttpUtility.HtmlEncode(pwd.Text));
             string status = "";
             string feedback = f;
             string password = pwd.Text.ToString().Trim();
@@ -246,7 +251,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                 error_message.ForeColor = Color.Red;
                 passchecker.Text = "Status: " + status + "<br>" + feedback;
 
-                //return;
+                return;
             }
 
             passchecker.ForeColor = Color.Green;
@@ -419,10 +424,28 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
 
         private void sendcode()
         {
+
+            smtpemail = Environment.GetEnvironmentVariable("smtpemail");
+            // If necessary, create it.
+            if (smtpemail == null)
+            {
+                Environment.SetEnvironmentVariable("smtpemail", "eduyuki19@gmail.com");
+
+                // Now retrieve it.
+                smtpemail = Environment.GetEnvironmentVariable("smtpemail");
+            }
+            if (smtppwd == null)
+            {
+                Environment.SetEnvironmentVariable("smtppwd", "3DUyuk!19");
+
+                // Now retrieve it.
+                smtppwd = Environment.GetEnvironmentVariable("smtppwd");
+            }
+
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
-            smtp.Credentials = new System.Net.NetworkCredential("eduyuki19@gmail.com", "3DUyuk!19");
+            smtp.Credentials = new System.Net.NetworkCredential(smtpemail,smtppwd);
             smtp.EnableSsl=true;
             MailMessage msg = new MailMessage();
             msg.Subject = "Verification code to verify your account";
