@@ -78,10 +78,18 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
 
 
             Response.Redirect("Login.aspx", false);
+            try
+            {
+                logMessage = "successful log out";
 
-            logMessage = "successful log out";
+                InsertLog(dis_email.Text, logMessage);
+            }
+            catch 
+            {
+                logMessage = "failed log out";
 
-            InsertLog(dis_email.Text, logMessage);
+                InsertLog(dis_email.Text, logMessage);
+            }
 
 
             if (Request.Cookies["ASP.NET_SessionId"] != null)
@@ -213,7 +221,8 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                             }
                             catch (Exception ex)
                             {
-                                home_error.Text = "failed to log out due to " + ex.ToString();
+                                Response.Write(ex.ToString());
+                                //home_error.Text = "failed to log out due to " + ex.ToString();
                                 //emailchecker.Text = "USE ANOTHER EMAIL PLS LAH SO TIRED";
                             }
                             finally
