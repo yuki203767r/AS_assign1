@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Change password</title>
     <script>
         function validatepwd() {
             var str = document.getElementById('<%=changepwd.ClientID %>').value;
