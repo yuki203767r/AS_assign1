@@ -465,7 +465,9 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                             }
                             catch (Exception ex)
                             {
-                                login_error.Text = ex.ToString();
+                                throw new Exception(ex.ToString());
+
+                                //login_error.Text = ex.ToString();
                                 //emailchecker.Text = "USE ANOTHER EMAIL PLS LAH SO TIRED";
                             }
                             finally
