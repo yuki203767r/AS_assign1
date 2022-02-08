@@ -396,7 +396,9 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
             catch (Exception ex)
             {
                 //change_error.Text = ex.ToString();
-                Response.Write(ex.ToString());
+                //Response.Write(ex.ToString());
+                throw new Exception(ex.ToString());
+
             }
             finally
             {

@@ -221,7 +221,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                             }
                             catch (Exception ex)
                             {
-                                Response.Write(ex.ToString());
+                                throw new Exception(ex.ToString());
                                 //home_error.Text = "failed to log out due to " + ex.ToString();
                                 //emailchecker.Text = "USE ANOTHER EMAIL PLS LAH SO TIRED";
                             }
