@@ -13,6 +13,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Configuration;
+using System.Collections.Specialized;
 
 namespace AS_assign1
 {
@@ -427,23 +428,32 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
 
         private void sendcode()
         {
-
-            smtpemail = Environment.GetEnvironmentVariable("smtpemail");
-            // If necessary, create it.
-            if (smtpemail == null)
+            var section = System.Web.Configuration.WebConfigurationManager.GetSection("secureAppSettings") as NameValueCollection;
+            if (section != null && section["password"] != null)
             {
-                Environment.SetEnvironmentVariable("smtpemail", "eduyuki19@gmail.com");
-
-                // Now retrieve it.
-                smtpemail = Environment.GetEnvironmentVariable("smtpemail");
+                smtppwd = section["password"];
             }
-            if (smtppwd == null)
+            if (section != null && section["email"] != null)
             {
-                Environment.SetEnvironmentVariable("smtppwd", "3DUyuk!19");
-
-                // Now retrieve it.
-                smtppwd = Environment.GetEnvironmentVariable("smtppwd");
+                smtpemail = section["email"];
             }
+
+            //smtpemail = Environment.GetEnvironmentVariable("smtpemail");
+            //// If necessary, create it.
+            //if (smtpemail == null)
+            //{
+            //    Environment.SetEnvironmentVariable("smtpemail", "");
+
+            //    // Now retrieve it.
+            //    smtpemail = Environment.GetEnvironmentVariable("smtpemail");
+            //}
+            //if (smtppwd == null)
+            //{
+            //    Environment.SetEnvironmentVariable("smtppwd", "");
+
+            //    // Now retrieve it.
+            //    smtppwd = Environment.GetEnvironmentVariable("smtppwd");
+            //}
 
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
