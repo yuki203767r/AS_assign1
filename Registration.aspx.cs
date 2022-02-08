@@ -292,15 +292,6 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                 
                 createAccount();
 
-                Session["Registered"] = email.Text.Trim();
-
-                string guid = Guid.NewGuid().ToString();
-                Session["AuthToken"] = guid;
-
-                // now create a new cookie with this guid value
-                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
-
-                Response.Redirect("Verification.aspx", false);
             }
 
 
@@ -386,11 +377,20 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
                                 cmd.ExecuteNonQuery();
                                 sendcode();
 
+                                Session["Registered"] = email.Text.Trim();
+
+                                string guid = Guid.NewGuid().ToString();
+                                Session["AuthToken"] = guid;
+
+                                // now create a new cookie with this guid value
+                                Response.Cookies.Add(new HttpCookie("AuthToken", guid));
+
+                                Response.Redirect("Verification.aspx", false);
                                 //Response.Redirect("Verification.aspx?Email=" + HttpUtility.UrlEncode(HttpUtility.HtmlEncode(email.Text.Trim())),false);
                             }
                             catch (Exception ex)
                             {
-                                lbl_error.Text = "invalid input";
+                                throw new Exception(ex.ToString());
 
 
                                 //emailchecker.Text = "USE ANOTHER EMAIL PLS LAH SO TIRED";
