@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Login</title>
-        <script src ="https://www.google.com/recaptcha/api.js?render=6Lc1bTodAAAAAFXtNNoIRPntI_aOMbXNhW4g1M-M"></script>
+        <script src ="https://www.google.com/recaptcha/api.js?render="></script>
         <script type="text/javascript">
             function LockedExpireAlert(timeout) {
                 var seconds = timeout / 1000;
@@ -63,7 +63,7 @@
 
     <script>
         grecaptcha.ready(function () {
-            grecaptcha.execute('6Lc1bTodAAAAAFXtNNoIRPntI_aOMbXNhW4g1M-M', { action: 'Login' }).then(function (token) {
+            grecaptcha.execute('', { action: 'Login' }).then(function (token) {
                 document.getElementById("g-recaptcha-response").value = token;
             });
         });
