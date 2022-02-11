@@ -62,7 +62,7 @@ System.Configuration.ConfigurationManager.ConnectionStrings["MYDBConnection"].Co
 
             //To send a GET request to Google along with the response and Secret key.
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create
-           (" https://www.google.com/recaptcha/api/siteverify?secret=6Lc1bTodAAAAAIHsIffLWxwomKG4_rXjh5Q4cq-0 &response=" + captchaResponse);
+           (" https://www.google.com/recaptcha/api/siteverify?secret= &response=" + captchaResponse);
 
 
             try
